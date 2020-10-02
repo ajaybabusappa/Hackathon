@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Material Management Portal</title>
+    <title>Faculty Registration</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style media="screen">
       footer{
@@ -54,36 +54,54 @@
         <table style = "margin:auto;text-align:center;border:6px solid black">
           <tr>
             <th style = "width:500px;height:200px;;border:3px solid black; padding:15px 100px 15px 100px;">
-              <p>Login as : </p>
-              
+              <p>Faculty Registration </p>
+              <div class="form-check">
 
-              <form action="loggedin/" method="POST">
-
-                {% csrf_token %}
+              <form method="POST" action="signedup/" >
                 <div class="form-group">
-                  <label for="email">Enter your ID</label>
-                  <input type="text" class="form-control" placeholder="Enter student/teacher_id" id="email"  name ="student_id" required>
+                  <label for="teacher_id">Faculty ID :</label>
+                  <input type="text" class="form-control" placeholder="ID" id="teacher_id"required name="teacher_id">
+                </div>
+                <div class="form-group">
+                  <label for="full_name">Full Name :</label>
+                  <input type="text" class="form-control" placeholder="Full Name" id="full_name"required name="full_name">
+                </div>
+                <div class="form-group">
+                  <label for="phonenumber">Phone Number :</label>
+                  <input type="text" class="form-control" placeholder="Phone Number" name="phone" id="phonenumber"required >
+                </div>
+                <div class="form-group">
+                  <label for="department_id">Select Department : </label>
+                  <select class="form-control" id="department_id" required name="department_id">
+                    <option value="CS101">Computer Science Engineering</option>
+                    <option value="EC101">Electronics and Communication Engineering</option>
+                    <option value="EE101">Electrical Engineering</option>
+                    <option value="ME101">Mechanical Engineering</option>
+                    <option value="CE101">Civil Engineering</option>
+                    <option value="BE101">Biotech Engineering</option>
+                    <option value="MM101">Metallurgical and Materials Engineering</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email :</label>
+                  <input type="email" class="form-control" placeholder="Enter Email" id="email"required name="email">
                 </div>
                 <div class="form-group">
                   <label for="pwd">Password:</label>
-                  <input type="password" class="form-control" placeholder="Enter password" id="pwd"required name="password">
+                  <input type="password" class="form-control" placeholder="Enter password" id="pwd"required onchange='check_pass();' name="password">
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Confirm Password:</label>
+                  <input type="password" class="form-control" placeholder="Enter password" id="confirm_pwd"required onchange='check_pass();'>
                   <input type="checkbox" onclick="showPassword()"syle ="text-align:left;">Show Password
                 </div>
-                <div class="form-group form-check">
-                  <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox"> Remember me
-                  </label>
-                </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary" id="submit">Sign Up</button>
+
               </form><br>
-              
+
             </th>
           </tr>
         </table>
-        <form action="signup/" method="POST">
-
-        <button type="submit" class="btn btn-success">Sign Up </button>
-        </form>
       </div>
 
       <footer>
@@ -116,11 +134,25 @@
 <script>
   function showPassword() {
     var x= document.getElementById('pwd')
+    var y= document.getElementById('confirm_pwd')
     if(x.type==="password"){
       x.type = "text"
     }
     else{
       x.type = "password"
+    }
+    if(y.type==="password"){
+      y.type = "text"
+    }
+    else{
+      y.type = "password"
+    }
+  }
+  function check_pass() {
+    if (document.getElementById('pwd').value === document.getElementById('confirm_pwd').value) {
+    document.getElementById('submit').disabled = false;
+    } else {
+    document.getElementById('submit').disabled = true;
     }
   }
 </script>

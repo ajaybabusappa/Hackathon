@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Select Course</title>
+    <title>Courses</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style media="screen">
       footer{
@@ -38,48 +38,49 @@
         color: white;
         border-radius: 5px;
       }
+      table{
+        border-collapse:separate;
+        border-spacing:30px 0;
+      }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   </head>
   <body>
+
     <div class="jumbotron jumbotron-fluid">
-      <h1 style = "text-align:center;"><b>Material Management Portal</b></h1>
-      <h2 style = "text-align:center;"><b>National Institute of Technology Warangal</b></h2>
+      <h2 style = "text-align:center;"><b>Material Management Portal</b></h2>
+      <h3 style = "text-align:center;"><b>National Institute of Technology Warangal</b></h3>
       <div class="container">
       </div>
     </div>
 
-    <div class="container" style ="margin-bottom:200px">
-        <table style = "margin:auto;border:0px solid white;">
-          <tr>
-            <th style = "width:500px;height:200px;;border:6px solid black; padding:15px 70px 15px 70px;">
-              <form method="POST" action="choosed/">
-                <div class="form-group" style ="margin:auto;">
-                  
-                </div>
-                <br>
-                <div class="form-group">
-                  <h4>Choose courses available from given</h4>
+    <div class="container"style ="margin-bottom:200px">
+      <h3 style="margin-left:50px;">Available Courses : </h3><br>
+      <table style="padding:20px 20px 20px 20px;margin-left:200px;margin-right:200px;">
+{% for i in courses_list %}
+        <tr style="background-color:#D3D3D3">
 
-                  {% for i in courses_list %}
-                      <div class="form-check"style ="text-align:left;padding-left:30px">
-                        <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" name="course" value="{{i.course_id}}" name="course">{{i.course_name}}
-                        </label>
-                      </div>
+          <th style="width:500px;height:50px;border:3px solid black;text-align:center;">
+            <h4 >{{i.course_name}}</h4>
+          </th>
+          <th style="width:500px;height:50px;border:3px solid black;text-align:center;">
+            <h4 >{{i.course_id}}</h4>
+          </th>
+	  <th style="width:500px;height:50px;border:3px solid black;text-align:center;">
+            <h4 >{{i.department_id}}</h4>
+          </th>
+        </tr>
 
-                  {% endfor %}
-                      
-                </div>
-                <br>
-                    <div style="text-align:center;">
-                      <button type="submit" class="btn btn-primary">Submit </button>
-                    </div>
-              </form>
-            </th>
-          </tr>
-        </table>
+{% endfor %}
+      </table>
+
+{% if session %}
+     <a href="{% url 'postfile' %}" style="align-self: center;">POST CONTENT</a>
+
+{% else %}
+
+{% endif %}
     </div>
 
 
@@ -99,7 +100,7 @@
           <div class="content">
             <div class="place">
               <span class="fas fa-map-marker-alt"></span>
-              <a href="https://www.google.com/maps/place/National+Institute+of+Technology,+Warangal,+Telangana/@17.983523,79.5308386,15z/data=!4m5!3m4!1s0x0:0xf1b2c37fcb8fefce!8m2!3d17.983523!4d79.5308386"><span class="text"style ="color:black";>National Institute of Technology Campus, fathimanagar, Warangal, Telangana 506004</span></a>
+              <a href="https://www.google.com/maps/place/National+Institute+of+Technology,+Warangal,+Telangana/@17.983523,79.5308386,15z/data=!4m5!3m4!1s0x0:0xf1b2c37fcb8fefce!8m2!3d17.983523!4d79.5308386"><span class="text"style="color:black;">National Institute of Technology Campus, fathimanagar, Warangal, Telangana 506004</span></a>
             </div>
             <div class="phone">
               <span class="fas fa-phone-alt"></span>

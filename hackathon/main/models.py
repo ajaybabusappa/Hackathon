@@ -10,47 +10,48 @@ class department(models.Model):
     department_id=models.CharField(max_length=10)
 
 class teacher(models.Model):
-    teacher_id=models.CharField(max_length=100)
+    teacher_id=models.CharField(max_length=100,null=True)
     full_name=models.CharField(max_length=100)
     mailid=models.EmailField()
     password=models.CharField(max_length=100)
     phonenumber=models.CharField(max_length=100)
-    department_id=models.ManyToManyField(department)
+    department_id=models.CharField(max_length=10,null=True)
 
 
 
 class student(models.Model):
     full_name=models.CharField(max_length=100)
     mailid=models.EmailField()
-    password=models.CharField(max_length=100)
+    password=models.CharField(max_length=100,null=False)
     phonenumber=models.CharField(max_length=100)
-    department_id=models.ManyToManyField(department)
-    student_id = models.CharField(max_length=100)
+    department_id=models.CharField(max_length=10,null=True)
+    student_id = models.CharField(max_length=100,null=True)
 
 
 
 class courses(models.Model):
-    course_name= models.CharField(max_length=100)
-    course_id=models.CharField(max_length=100)
-    department_id=models.ManyToManyField(department)
+    course_name= models.CharField(max_length=100,null=True)
+    course_id=models.CharField(max_length=100,null=True)
+    department_id=models.CharField(max_length=100,null=True)
 
 
 
 class studentcourse(models.Model):
-    course_id=models.ManyToManyField(courses)
-    student_id= models.ManyToManyField(student)
+    course_id=models.CharField(max_length=10,null=True)
+    student_id= models.CharField(max_length=10,null=True)
 
 
 
 class teachercourse(models.Model):
-    course_id=models.ManyToManyField(courses)
-    teacher_id=models.ManyToManyField(teacher)
+    course_id=models.CharField(max_length=10,null=True)
+    teacher_id=models.CharField(max_length=10,null=True)
     
         
 class file(models.Model):
     map_name = models.CharField(max_length=200)
     map_data=models.FileField(upload_to='maps',storage=gd_storage)
-    course_id=models.ManyToManyField(courses)
+    course_id=models.CharField(max_length=10,null=True)
+    descreption = models.CharField(max_length=100,null=True)
 
     
 

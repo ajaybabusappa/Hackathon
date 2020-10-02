@@ -54,27 +54,58 @@
         <table style = "margin:auto;border:0px solid white;">
           <tr>
             <th style = "width:500px;height:200px;;border:6px solid black; padding:15px 70px 15px 70px;">
-              <form method="POST" action="choosed/">
+              <form >
                 <div class="form-group" style ="margin:auto;">
-                  
+                  <label for="sel1">Year of Study : </label>
+                  <select class="form-control" id="sel1" required>
+                    <option>B.tech 1st year</option>
+                    <option>B.tech 2nd year</option>
+                    <option>B.tech 3rd year</option>
+                    <option>B.tech 4th year</option>
+                  </select>
                 </div>
                 <br>
                 <div class="form-group">
-                  <h4>Choose courses available from given</h4>
-
-                  {% for i in courses_list %}
+                  <h4>Choose your Course : </h4>
                       <div class="form-check"style ="text-align:left;padding-left:30px">
                         <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" name="course" value="{{i.course_id}}" name="course">{{i.course_name}}
+                          <input type="radio" class="form-check-input" name="CSE"required>Computer Science Engineering
                         </label>
                       </div>
-
-                  {% endfor %}
-                      
+                      <div class="form-check"style ="text-align:left;padding-left:30px">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="ECE"required>Electronics and Communication Engineering
+                        </label>
+                      </div>
+                      <div class="form-check"style ="text-align:left;padding-left:30px">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="EEE"required>Electrical Engineering
+                        </label>
+                      </div>
+                      <div class="form-check"style ="text-align:left;padding-left:30px">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="MECH"required>Mechanical Engineering
+                        </label>
+                      </div>
+                      <div class="form-check"style ="text-align:left;padding-left:30px">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="CIVIL"required>Civil Engineering
+                        </label>
+                      </div>
+                      <div class="form-check"style ="text-align:left;padding-left:30px">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="BIO"required>Biotech Engineering
+                        </label>
+                      </div>
+                      <div class="form-check"style ="text-align:left;padding-left:30px">
+                        <label class="form-check-label">
+                          <input type="radio" class="form-check-input" name="MME"required>Metallurgical and Materials Engineering
+                        </label>
+                      </div>
                 </div>
                 <br>
                     <div style="text-align:center;">
-                      <button type="submit" class="btn btn-primary">Submit </button>
+                      <button type="button" class="btn btn-primary">Submit</button>
                     </div>
               </form>
             </th>
