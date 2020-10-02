@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+   
+</head>
+<body>
+
+<div class="container">
+<h2>Choose your courses textr</h2><br></br>
+<form method='POST' action="selectcourse/">
+    {% csrf_token %}
+
+{% for x in courses_list %}
+<div class= "row">
+<input name="course" type="checkbox" value="{{x.course_name}}"><h1>{{x.course_name}}</h1></input>
+</div>
+{% endfor %}
+
+    <button>submit</button>
+
+</form>
+</div>
+
+</body>
+</html>
