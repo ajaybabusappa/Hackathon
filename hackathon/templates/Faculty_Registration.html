@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style media="screen">
       footer{
-        position: fixed;
+       
         bottom: 0px;
         width: 100%;
         background: #D3D3D3;
@@ -49,11 +49,11 @@
         <div class="container">
         </div>
       </div>
-
-      <div class="container" style ="margin-bottom:200px">
+<div class="container col-12 col-md-6">
+      <div class="container" style ="margin-bottom:20px">
         <table style = "margin:auto;text-align:center;border:6px solid black">
           <tr>
-            <th style = "width:500px;height:200px;;border:3px solid black; padding:15px 100px 15px 100px;">
+            <th style = "border:3px solid black; padding:1.5x 10px 1.5px 10px;">
               <p>Faculty Registration </p>
               <div class="form-check">
 
@@ -103,7 +103,7 @@
           </tr>
         </table>
       </div>
-
+</div>
       <footer>
         <div class="main-content">
 
@@ -148,13 +148,8 @@
       y.type = "password"
     }
   }
-  function check_pass() {
-    if (document.getElementById('pwd').value === document.getElementById('confirm_pwd').value) {
-    document.getElementById('submit').disabled = false;
-    } else {
-    document.getElementById('submit').disabled = true;
-    }
-  }
+
+ 
 </script>
 
   </body>

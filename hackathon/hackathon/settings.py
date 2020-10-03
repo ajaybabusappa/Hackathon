@@ -122,5 +122,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = 'C:/Users/AJAY BABU SAPPA/Downloads/credentials.json'
-GOOGLE_DRIVE_STORAGE_MEDIA_ROOT = '<base google drive path for file uploads>' # OPTIONAL
+#GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = 'C:/Users/AJAY BABU SAPPA/Downloads/credentials.json'
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE=os.path.join(BASE_DIR,'credentials.json')
+#GOOGLE_DRIVE_STORAGE_MEDIA_ROOT =  # OPTIONAL
+

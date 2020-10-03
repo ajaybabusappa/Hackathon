@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style media="screen">
       footer{
-        position: fixed;
+  
         bottom: 0px;
         width: 100%;
         background: #D3D3D3;
@@ -43,17 +43,21 @@
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   </head>
   <body>
+    <div class="container col-12 col-md-12">
     <div class="jumbotron jumbotron-fluid">
       <h1 style = "text-align:center;"><b>Material Management Portal</b></h1>
       <h2 style = "text-align:center;"><b>National Institute of Technology Warangal</b></h2>
       <div class="container">
       </div>
     </div>
+  </div>
 
-    <div class="container" style ="margin-bottom:200px">
+
+<div class="container col-12 col-md-6">
+    <div class="container" style ="margin-bottom:20px">
         <table style = "margin:auto;border:0px solid white;">
           <tr>
-            <th style = "width:500px;height:200px;;border:6px solid black; padding:15px 70px 15px 70px;">
+            <th style = "border:6px solid black; padding:1.5px 7px 1.5px 7px;">
               <form method="POST" action="choosed/">
                 <div class="form-group" style ="margin:auto;">
                   
@@ -65,7 +69,7 @@
                   {% for i in courses_list %}
                       <div class="form-check"style ="text-align:left;padding-left:30px">
                         <label class="form-check-label">
-                          <input type="checkbox" class="form-check-input" name="course" value="{{i.course_id}}" name="course">{{i.course_name}}
+                          <input type="checkbox" class="form-check-input" name="course" value="{{i.course_id}}" name="course">{{i.course_name}}|{{i.course_id}}
                         </label>
                       </div>
 
@@ -81,8 +85,29 @@
           </tr>
         </table>
     </div>
+</div>
 
 
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+
+<br>
+<br>
+<br>
+<br>
     <footer>
       <div class="main-content">
 

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Courses</title>
+    <title>Uploading Portal</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <style media="screen">
       footer{
@@ -28,19 +28,15 @@
         text-transform: uppercase;
       }
       .box .content{
-        margin: 2px 0 0 0;
+        margin: 20px 0 0 0;
       }
       .left .content .social{
-        margin : 2px 0 0 0;
+        margin : 20px 0 0 0;
       }
       .left .content .social a span{
         font-size: 18px;
         color: white;
         border-radius: 5px;
-      }
-      table{
-        border-collapse:separate;
-        border-spacing:30px 0;
       }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,49 +45,48 @@
   <body>
 
     <div class="jumbotron jumbotron-fluid">
-      <h2 style = "text-align:center;"><b>Material Management Portal</b></h2>
-      <h3 style = "text-align:center;"><b>National Institute of Technology Warangal</b></h3>
+      <h1 style = "text-align:center;"><b>Material Management Portal</b></h1>
+      <h2 style = "text-align:center;"><b>National Institute of Technology Warangal</b></h2>
       <div class="container">
       </div>
     </div>
 
-<div class="container col-6 ml-auto mr-auto">
-  <div>
-{% if session %}
-     <a href="{% url 'postfile' %}" style="align-self: center;"><b>POST CONTENT</b></a>
-
-     <a href="{% url 'viewfiles' %}" style="align-self: center;"><b>Manage Files</b></a>
-
-{% else %}
-
-    <a href="{% url 'viewfiles' %}">View your course Files</a>
-
-{% endif %}
-</div>
-</div>
-
     <div class="container"style ="margin-bottom:20px">
-      <h3>Your Courses :</h3><br>
-      <table style="padding:0.2px 2px 2px 0.2px;">
-{% for i in courses_list %}
-        <tr style="background-color:#D3D3D3">
+      <h4 style="text-align:center;">Upload your files here : </h4><br>
+      <table style = "margin:auto;">
+        <tr>
+          <th style = "border:3px solid black; padding:1.5px 10px 1.5px 10px;">
+            <form method="post" action="upload/" enctype = "multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                <label for="filename">File Name :</label>
+                <input type="text" name="filename"  id="filename" placeholder="Enter file name" required>
+              </div>
+              <div class="form-group">
+                <label for="course_id">Select Course ID :</label>
+                <select class="form-control" id="course_id" name="course_id" required name="course_id">
 
-          <th style="border:1px solid black;text-align:center;">
-            <h4 >{{i.course_name}}</h4>
-          </th>
-          <th style="border:1px solid black;text-align:center;">
-            <h4 >{{i.course_id}}</h4>
-          </th>
-	  <th style="border:1px solid black;text-align:center;">
-            <h4 >{{i.department_id}}</h4>
+                  {% for i in x %}
+                  <option>{{i.course_id}}</option>
+                  {% endfor %}
+
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="myfile">Select files:</label>
+                <input type="file" id="myfile" name="file" multiple>
+              </div>
+              <div class="form-group">
+                <textarea name="description" rows="4" cols="40" placeholder="Description"></textarea>
+              </div>
+              <div class="form-group" style="text-align:center">
+                <button type="submit" class="btn btn-primary" style="border:2px solid black;border-radius:10px;">Upload</button>
+              </div>
+            </form>
           </th>
         </tr>
-
-{% endfor %}
       </table>
-
     </div>
-
 
     <footer>
       <div class="main-content">
@@ -119,6 +114,5 @@
         </div>
       </div>
     </footer>
-
   </body>
 </html>

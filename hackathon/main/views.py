@@ -1,9 +1,23 @@
 from django.shortcuts import render
 from .models import courses,studentcourse,teachercourse,file,student,teacher
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import ListView  ,DetailView, UpdateView ,DeleteView
 from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
 # Create your views here.
 #request.session['student_id']='831727'
+
+
+
+from gdstorage.storage import GoogleDriveStorage, GoogleDrivePermissionType, GoogleDrivePermissionRole, GoogleDriveFilePermission
+
+permission =  GoogleDriveFilePermission(
+   GoogleDrivePermissionRole.READER,
+   GoogleDrivePermissionType.USER,
+   
+)
+
+
 
 @csrf_exempt
 def mainpage(request):
@@ -79,11 +93,23 @@ def studentlogin(request):
 		request.session['student_id']=student_id
 		if studentx:
 			contacx=studentcourse.objects.filter(student_id=student_id)
+			for i in contacx:
+				x=courses.objects.filter(course_id=i.course_id)
 			request.session['teacher']=False;
-			return render(request,'courses.html',{'courses_list':contacx,'session':request.session['teacher']})
+			request.session['student']=True;
+			return render(request,'courses.html',{'courses_list':x,'session':request.session['teacher']})
 		else:
 			message="wrong creds"
 			return render(request,'errorpage.html',{'message': message})
+
+	else:
+		if request.session['student']:
+			
+			contacx=studentcourse.objects.filter(student_id=request.session['student_id'])
+			for i in contacx:
+				x=courses.objects.filter(course_id=i.course_id)
+				request.session['student']=True;
+			return render(request,'courses.html',{'courses_list':x,'session':request.session['teacher']})
 
 
 
@@ -104,8 +130,19 @@ def teacherlogin(request):
 			request.session['teacher']=True;
 			return render(request,'courses.html',{'courses_list':x,'session':request.session['teacher']})
 		else:
+
+
 			message="wrong creds"
 			return render(request,'errorpage.html',{'message': message})
+	else:
+		
+		if request.session['teacher']:
+			
+			contacx=studentcourse.objects.filter(student_id=request.session['student_id'])
+			for i in contacx:
+				x=courses.objects.filter(course_id=i.course_id)
+				request.session['teacher']=True;
+			return render(request,'courses.html',{'courses_list':x,'session':request.session['teacher']})
 
 	
 
@@ -127,18 +164,81 @@ def courseslist(request):
 
 def postfile(request):
 	if request.session['teacher']:
-		return render(request,'fileuploadcheck.html')
+		x=studentcourse.objects.filter(student_id=request.session['student_id'])
+
+		return render(request,'Uploading_portal.html',{'x':x})
 	else:
 		return render(request,'errorpage.html')
 
 
 
+def viewfiles(request):
+	x = studentcourse.objects.filter(student_id=request.session['student_id'])
+	filesto1=[]
+	for i in x:
+		filesto=file.objects.filter(course_id=i.course_id)
+		for t in filesto:
+			filesto1.append(t)
+
+	return render(request,'allfiles1.html',{'files':filesto1,'session':request.session['teacher'],'x':x})
+
+
+
+@csrf_exempt
 def upload(request):
 	doc=request.FILES
 	file_pdf = doc['file']
 	filename=request.POST['filename']
 	file_description = request.POST['description']
-	files=file.objects.create(map_name=filename,map_data=file_pdf,descreption=file_description)
+	course_id=request.POST[course_id]
+	files=file.objects.create(map_name=filename,map_data=file_pdf,descreption=file_description,course_id=course_id)
 	print(file_pdf)
 	print(filename)
 	return render(request,'index.html')
+
+
+
+
+class Deletepostviewjob(DeleteView):
+	model = file
+	template_name = 'delete_post.html'
+	success_url = reverse_lazy('viewfiles')
+
+
+
+
+
+@csrf_exempt
+def listfiles (request):
+	doc=request.FILES
+	file_pdf = doc['file']
+	filename=request.POST['filename']
+	file_description = request.POST['description']
+	course_id1=request.POST['course_id']
+	files=file.objects.create(map_name=filename,map_data=file_pdf,descreption=file_description,course_id=course_id1)
+	print(file_pdf)
+	print(filename)
+	return HttpResponseRedirect('/teacher/loggedin/')
+
+
+
+	#x = studentcourse.objects.filter(student_id=request.session['student_id'])
+	#filesto1=[]
+	#for i in x:
+	#	filesto=file.objects.filter(course_id=i.course_id)
+	#	for t in filesto:
+	#		filesto1.append(t)
+
+
+	#return render(request,'allfiles1.html',{'files':filesto1,'session':request.session['teacher'],'x':x})
+
+
+
+
+
+
+@csrf_exempt
+def search(request):
+	course = request.POST['course']
+	filesto = file.objects.filter(course_id=course)
+	return render(request,'searched_files.html',{'files':filesto,'session':request.session['teacher']})
